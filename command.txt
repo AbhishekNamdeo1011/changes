@@ -1,0 +1,47 @@
+npm install @google-cloud/translate — install Google Cloud Translate
+
+npm install @google-cloud/vision — install Google Vision API
+
+npm install @google/genai — install Google GenAI
+
+npm install @google/generative-ai — install Google Generative AI SDK
+
+npm install @pinecone-database/pinecone — install Pinecone vector DB
+
+npm install bcrypt — password hashing
+
+npm install cookie-parser — cookie handling middleware
+
+npm install cors — enable cross-origin requests
+
+npm install dotenv — load .env variables
+
+npm install express — main backend framework
+
+npm install franc — language detection
+
+npm install imagekit — ImageKit uploader
+
+npm install jsonwebtoken — JWT auth tokens
+
+npm install mongoose — MongoDB ORM
+
+npm install multer — file upload middleware
+
+npm install node-fetch — fetch API for Node
+
+npm install nodemon — auto-restart dev server
+
+npm install pdf-parse — extract text from PDFs
+
+npm install pdf2pic — convert PDF pages to images
+
+npm install qrcode-terminal — show QR code in terminal (WhatsApp)
+
+npm install socket.io — real-time events (WebSockets)
+
+npm install tesseract.js — OCR text extraction
+
+npm install uuid — generate unique IDs
+
+npm install whatsapp-web.js — WhatsApp automation library
