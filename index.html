@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+      <script>
+      // 🔑 Helper: hamesha latest JWT lo jo auth app ne store kiya hai
+      function getWebsiteToken() {
+        // Auth frontend setToken() yahi "token" key me JWT save karta hai
+        const authToken = localStorage.getItem("token");
+        if (!authToken) {
+          console.log("🌐 Parent: No auth token found (guest user).");
+          return null;
+        }
+        console.log("🌐 Parent: Using auth token from localStorage:", authToken);
+        return authToken;
+      }
+
+      // 🔹 Chat iframe create karo
+      const iframe = document.createElement("iframe");
+      iframe.src = "http://localhost:5173/chat-widget.html"; // widget app ka URL
+      iframe.style.position = "fixed";
+      iframe.style.bottom = "20px";
+      iframe.style.right = "20px";
+      iframe.style.width = "350px";
+      iframe.style.height = "500px";
+      iframe.style.border = "none";
+      iframe.style.borderRadius = "10px";
+      iframe.style.zIndex = "9999";
+      document.body.appendChild(iframe);
+
+      // ✅ 1) iframe load hote hi token bhej do
+      iframe.onload = () => {
+        const WEBSITE_TOKEN = getWebsiteToken();
+        console.log("🌐 Parent: iframe loaded, sending token:", WEBSITE_TOKEN);
+        iframe.contentWindow.postMessage(
+          {
+            type: "WEBSITE_TOKEN",
+            websiteToken: WEBSITE_TOKEN,
+          },
+          "*" // dev me okay, prod me exact origin use karna
+        );
+      };
+
+      // ✅ 2) Agar widget dubara token maange to hamesha latest bhejo
+      window.addEventListener("message", (event) => {
+        const data = event.data || {};
+        if (data.type === "REQUEST_WEBSITE_TOKEN") {
+          const WEBSITE_TOKEN = getWebsiteToken();
+          console.log(
+            "🌐 Parent: widget requested token, sending:",
+            WEBSITE_TOKEN
+          );
+          event.source.postMessage(
+            {
+              type: "WEBSITE_TOKEN",
+              websiteToken: WEBSITE_TOKEN,
+            },
+            event.origin || "*"
+          );
+        }
+      });
+
+   
+    </script>
+</body>
+</html>
